@@ -56,3 +56,20 @@ jobs:
           file: ./CD-Pipeline-Github-Actions/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-ping-server:latest
+  deploy-to-dev:
+    runs-on: self-hosted
+    # needs: [image-build]
+    container:
+      image: ubuntu:22.04
+    steps:
+    - name: set configuration
+      run: |
+        kubectl config set-cluster kind-actions-kind --server=https://0.0.0.0:6443/ --insecure-skip-tls-verify=true
+        kubectl config set-credentials actions-dev --token="\${{ secrets.ACTIONS_DEV_TOKEN }}"
+        kubectl config set-context actions-dev --user=actions-dev --cluster=kind-actions-kind --namespace=dev
+        kubectl config use-context actions-dev
+    - name: Deploy to dev namespace
+      run: |
+        kubectl create deploy flask-ping-server --image=\${{ secrets.DOCKERHUB_USERNAME }}/flask-ping-server:latest --replicas=2 --port=5000 --dry-run=client -o yaml > flask-ping-server.yaml
+        kubectl replace --force -f flask-ping-server.yaml
+    
