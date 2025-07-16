@@ -20,7 +20,7 @@ jobs:
         apt-get update && apt-get install -y wget
         wget -qO "/usr/local/bin/kubectl" https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
         chmod +x "/usr/local/bin/kubectl"
-        kubectl config set-cluster kind-actions-kind --server=https://172.18.0.6:6443/ --insecure-skip-tls-verify=true
+        kubectl config set-cluster kind-actions-kind --server=https://host.docker.internal:6444/ --insecure-skip-tls-verify=true
         kubectl config set-credentials actions-dev --token="\${{ secrets.ACTIONS_DEV_TOKEN }}"
         kubectl config set-context actions-dev --user=actions-dev --cluster=kind-actions-kind --namespace=dev
         kubectl config use-context actions-dev
