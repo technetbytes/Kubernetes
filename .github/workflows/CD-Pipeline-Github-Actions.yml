@@ -21,7 +21,7 @@ jobs:
         wget -qO "/usr/local/bin/kubectl" https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
         chmod +x "/usr/local/bin/kubectl"
         kubectl config set-cluster kind-actions-kind --server=https://host.docker.internal:6444/ --insecure-skip-tls-verify=true
-        kubectl config set-credentials actions-dev --token="${{ secrets.ACTIONS_DEV_TOKEN }}"
+        kubectl config set-credentials actions-dev --token="eyJhbGciOiJSUzI1NiIsImtpZCI6IkZaYjJXbFgwRndGSzBEa2dVc2dQeUlrNWtsMEI4QWlxTUhoakp4ZGZibjgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZXYiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoiYWN0aW9ucy1kZXYtc2VjcmV0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFjdGlvbnMtZGV2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiOTY2OGQ0ZjgtNjBiMi00ZTdkLTgwYWEtMzljYTkwNGNkODViIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRldjphY3Rpb25zLWRldiJ9.MlfRfyGnS4CGFUCLRHMhLXv4IT0EYFVzKR2_xI-87IjG1z-vt6uiECXCvx204Qma7cc6AkTqFDCJJ3YHEg0rlrR1RAzHIMYJv8M4JTtDDN03VLvfUzH7VjKgiNvm6EPALB6kuwX-LnW0_V85CGreOEjAxrM7qFyfvjsd_2Y-rD2rJCswO8mEH5j-wwbj-CVIqHFro7mnNetHEqU31VcQcsO-Ttb8S64WrmRHN3B_7iCIrPce5tgHwmG5w33qoxckk2yWrOuSD965yPq7hrFJum-4Di3CFUPdGZ6XJqk48vJ0LmR1Wggwl9n5V9K7eKWGQWR_bqEEHYROL_tPXJxqfg"
         kubectl config set-context actions-dev --user=actions-dev --cluster=kind-actions-kind --namespace=dev
         kubectl config use-context actions-dev
     - name: Deploy to dev namespace
